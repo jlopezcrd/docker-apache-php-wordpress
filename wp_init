@@ -1,0 +1,58 @@
+#!/bin/bash
+
+git clone https://github.com/jlopezcrd/docker-compose-wordpress.git
+
+cat /dev/null > .env
+	
+echo "Introduce el password de root de MySql:"
+read MYSQL_ROOT_PASSWORD
+echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
+
+echo "Introduce el nombre de la BD de MySql:"
+read MYSQL_DATABASE
+echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env
+
+echo "Introduce el usuario la BD de MySql:"
+read MYSQL_USER
+echo "MYSQL_USER=$MYSQL_USER" >> .env
+
+echo "Introduce el password del usuario de la BD de MySql:"
+read MYSQL_PASSWORD
+echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env
+
+echo "Introduce el prefijo de la base de datos:"
+read MYSQL_PREFIX
+if [[ $MYSQL_PREFIX == '' ]]; then
+	echo "MYSQL_PREFIX=wp_" >> .env
+else
+	echo "MYSQL_PREFIX=$MYSQL_PREFIX" >> .env
+fi
+
+echo "Introduce la version de wordpress:"
+read WORDPRESS_VERSION
+if [[ $WORDPRESS_VERSION == '' ]]; then
+	echo "WORDPRESS_VERSION=4.9.4" >> .env
+else
+	echo "WORDPRESS_VERSION=$WORDPRESS_VERSION" >> .env
+fi
+
+echo "Activar modo debug:"
+read WORDPRESS_DEBUG
+if [[ $WORDPRESS_DEBUG != '' ]]; then
+	echo "WORDPRESS_DEBUG=$WORDPRESS_DEBUG" >> .env
+else
+	echo "WORDPRESS_DEBUG=false" >> .env
+fi
+
+echo " "
+echo " "
+echo "==========================="
+echo "¡ FIN DE LA CONFIGURACION !"
+echo "==========================="
+echo " "
+echo " "
+
+
+echo "ARRANCANDO DOCKER..."
+
+docker-compose up
