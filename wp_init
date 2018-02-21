@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git clone https://github.com/jlopezcrd/docker-compose-wordpress.git
+git clone https://github.com/jlopezcrd/docker-compose-wordpress.git .
 
 cat /dev/null > .env
 	
